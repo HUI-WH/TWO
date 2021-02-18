@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tsu.blog.dao.ArticleDtoDao">
+    <resultMap id="BaseResultMap" type="cn.edu.tsu.blog.commons.dto.ArticleDto">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="atitle" jdbcType="VARCHAR" property="title" />
+        <result column="aid" jdbcType="INTEGER" property="authorId"/>
+        <result column="aname" jdbcType="VARBINARY" property="authorName"/>
+        <result column="acontent" jdbcType="VARCHAR" property="content"/>
+        <result column="describe" jdbcType="VARCHAR" property="describe"/>
+        <result column="titleimg" jdbcType="VARCHAR" property="titleImg"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <association property="articleinfo" javaType="cn.edu.tsu.blog.model.Articleinfo">
+            <result column="aiid" jdbcType="INTEGER" property="id"/>
+            <result column="likes" jdbcType="INTEGER" property="likes"/>
+            <result column="comments" jdbcType="INTEGER" property="comments"/>
+            <result column="collections" jdbcType="INTEGER" property="collections"/>
+            <result column="id" jdbcType="INTEGER" property="articleId"/>
+            <result column="readings" jdbcType="INTEGER" property="readings"/>
+        </association>
+        <collection property="commentList" ofType="cn.edu.tsu.blog.commons.dto.CommentDto">
+            <result column="id" jdbcType="INTEGER" property="aid"/>
+            <result column="ccontent" jdbcType="VARCHAR" property="content"/>
+            <result column="articleScore" jdbcType="INTEGER" property="articleScore"/>
+            <result column="cid" jdbcType="INTEGER" property="id"/>
+            <result column="ctime" jdbcType="TIMESTAMP" property="createTime"/>
+            <result column="clikes" jdbcType="INTEGER" property="likes"/>
+            <result column="cpid" jdbcType="INTEGER" property="pid"/>
+            <result column="cuid" jdbcType="INTEGER" property="uid"/>
+            <result column="cuname" jdbcType="VARCHAR" property="uName"/>
+            <result column="uicon" jdbcType="VARCHAR" property="UIcon"/>
+        </collection>
+        <collection property="labels" ofType="cn.edu.tsu.blog.model.Label">
+            <result column="ltime" jdbcType="TIMESTAMP" property="createtime"/>
+            <result column="lid" jdbcType="INTEGER" property="id"/>
+            <result column="lname" jdbcType="VARCHAR" property="labelName"/>
+            <result column="lpid" jdbcType="INTEGER" property="pid"/>
+            <result column="lclass" jdbcType="INTEGER" property="labelClass"/>
+        </collection>
+    </resultMap>
+    <select id="get" resultMap="BaseResultMap">
+        SELECT
+            a.id AS id,
+            a.title AS atitle,
+            a.author_id AS aid,
+            u.`name` AS aname,
+            a.content AS acontent,
+            a.`describe` AS `describe`,
+            a.title_img AS titleimg,
+            a.create_time AS createtime,
+            ai.id AS aiid,
+            ai.likes AS likes,
+            ai.comments AS comments,
+            ai.collections AS collections,
+            ai.readings AS readings,
+            c.content AS ccontent,
+            c.article_score AS articleScore,
+            c.id AS cid,
+            c.create_time AS ctime,
+            c.likes AS clikes,
+            c.pid AS cpid,
+            c.uid AS cuid,
+            l.createtime AS ltime,
+            l.id AS lid,
+            l.label_name AS lname,
+            l.pid AS lpid,
+            l.label_class AS lclass,
+            u2.`name` AS cuname,
+            u.icon AS uicon
+
+        FROM article AS a
+        LEFT JOIN articleinfo AS ai
+        ON a.id = ai.article_id
+        LEFT JOIN `comment` AS c
+        ON a.id = c.aid
+        LEFT JOIN article_label AS al
+        ON a.id = al.aid
+        LEFT JOIN label AS l
+        ON al.lid = l.id
+        LEFT JOIN `user` AS u
+        ON a.author_id = u.id
+        LEFT JOIN `user` AS u2
+        ON c.uid = u2.id
+        WHERE a.id = #{id,jdbcType=INTEGER}
+        ORDER BY c.pid
+    </select>
+
+
+</mapper>

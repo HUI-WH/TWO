@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tsu.blog.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.tsu.blog.model.Permission">
+        <!--@mbg.generated generated on Tue Sep 08 08:10:07 CST 2020.-->
+        <!--@Table permission-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="pid" jdbcType="BIGINT" property="pid"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="uri" jdbcType="VARCHAR" property="uri"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Tue Sep 08 08:10:07 CST 2020.-->
+        id, pid, `name`, `value`, icon, `type`, uri, `status`, create_time, sort
+    </sql>
+    <select id="getPermissionList" resultType="cn.edu.tsu.blog.model.Permission">
+
+        SELECT p.*
+        FROM admin as a
+        LEFT JOIN admin_role_relation as arr
+        ON a.id =arr.admin_id
+        LEFT JOIN role_permission_relation as rpr
+        ON  arr.role_id = rpr.role_id
+        LEFT JOIN permission as p
+        ON  rpr.permission_id =p.id
+        WHERE a.id=#{id}
+
+    </select>
+
+    <select id="getUserPermissionList" resultType="cn.edu.tsu.blog.model.Permission">
+
+        SELECT p.*
+        FROM `user` as u
+        LEFT JOIN user_role as ur
+        ON u.id =ur.user_id
+        LEFT JOIN role_permission_relation as rpr
+        ON  ur.role_id = rpr.role_id
+        LEFT JOIN permission as p
+        ON  rpr.permission_id =p.id
+        WHERE u.id=#{id,jdbcType=INTEGER}
+    </select>
+</mapper>

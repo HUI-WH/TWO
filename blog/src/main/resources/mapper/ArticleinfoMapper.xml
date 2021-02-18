@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tsu.blog.mapper.ArticleinfoMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.tsu.blog.model.Articleinfo">
+    <!--@mbg.generated generated on Tue Sep 08 22:32:46 CST 2020.-->
+    <!--@Table articleinfo-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <result column="readings" jdbcType="INTEGER" property="readings" />
+    <result column="collections" jdbcType="INTEGER" property="collections" />
+    <result column="comments" jdbcType="INTEGER" property="comments" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Tue Sep 08 22:32:46 CST 2020.-->
+    id, article_id, likes, readings, collections, comments
+  </sql>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tsu.blog.mapper.LabelMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.tsu.blog.model.Label">
+    <!--@mbg.generated generated on Tue Sep 08 22:32:46 CST 2020.-->
+    <!--@Table `label`-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="label_name" jdbcType="VARCHAR" property="labelName" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="label_class" jdbcType="INTEGER" property="labelClass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Tue Sep 08 22:32:46 CST 2020.-->
+    id, label_name, createtime, label_class
+  </sql>
+</mapper>

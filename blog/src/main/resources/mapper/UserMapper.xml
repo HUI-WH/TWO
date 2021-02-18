@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tsu.blog.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.tsu.blog.model.User">
+    <!--@mbg.generated generated on Sun Jul 19 13:11:57 CST 2020.-->
+    <!--@Table `user`-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Sun Jul 19 13:11:57 CST 2020.-->
+    id, code, `password`, `name`, create_time, login_time, icon, email
+  </sql>
+
+  <select id="getFansNum" resultType="int">
+        SELECT count(*)
+        FROM subscribe
+        WHERE subscribe.pid=#{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getCollectionNum" resultType="INTEGER">
+    SELECT sum(ai.collections)
+    FROM article AS a
+    LEFT JOIN articleinfo AS ai
+    ON a.id=ai.article_id
+    WHERE a.author_id=#{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getCommentNum" resultType="INTEGER">
+    SELECT sum(ai.comments)
+    FROM article AS a
+    LEFT JOIN articleinfo AS ai
+    ON a.id=ai.article_id
+    WHERE a.author_id=#{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getFollowNum" resultType="INTEGER">
+    SELECT count(*)
+    FROM subscribe
+    WHERE subscribe.uid=#{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getReadingNum" resultType="INTEGER">
+    SELECT sum(ai.readings)
+    FROM article AS a
+    LEFT JOIN articleinfo AS ai
+    ON a.id=ai.article_id
+    WHERE a.author_id=#{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getArticleNum" resultType="INTEGER">
+    SELECT count(*)
+    FROM article AS a
+    WHERE a.author_id=#{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getLikesNum" resultType="INTEGER">
+    SELECT sum(ai.likes)
+    FROM article AS a
+    LEFT JOIN articleinfo AS ai
+    ON a.id=ai.article_id
+    WHERE a.author_id=#{id,jdbcType=INTEGER}
+  </select>
+</mapper>

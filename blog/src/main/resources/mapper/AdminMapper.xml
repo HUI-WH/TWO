@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tsu.blog.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.tsu.blog.model.Admin">
+    <!--@mbg.generated generated on Sun Jul 19 13:11:57 CST 2020.-->
+    <!--@Table `admin`-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Sun Jul 19 13:11:57 CST 2020.-->
+    id, code, `name`, `password`, create_time, login_time, icon, email
+  </sql>
+
+</mapper>

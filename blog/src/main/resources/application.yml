@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: blog
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  security:
+    user:
+      name: admin
+      password: admin
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mall-admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+mybatis:
+  type-aliases-package: cn.edu.tsu.blog.model
+  mapper-locations: classpath:mapper/*.xml,classpath:dao/*.xml
+
+aliyun:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  accessKeyId: LTAI4GEECgGAXYUS4bxVSNE5
+  accessKeySecret: sJYgolMeulb1rNMuJLTA8nMeBvphAY
+  bucketName: gregorio-vblog
+  urlPrefix: http://gregorio-vblog.oss-cn-beijing.aliyuncs.com
